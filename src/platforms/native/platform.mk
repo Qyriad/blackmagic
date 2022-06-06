@@ -2,7 +2,7 @@ CROSS_COMPILE_native ?= arm-none-eabi-
 CC_native ?= $(CROSS_COMPILE_native)gcc
 OBJCOPY_native = $(CROSS_COMPILE_native)objcopy
 
-CFLAGS_native += -Istm32/include -mcpu=cortex-m3 -mthumb \
+CFLAGS_native += -Iplatforms/native -Istm32/include -mcpu=cortex-m3 -mthumb \
 	-DSTM32F1 -DBLACKMAGIC -I../libopencm3/include \
 	-Iplatforms/stm32 -DDFU_SERIAL_LENGTH=9
 
@@ -59,7 +59,7 @@ build/native/blackmagic.elf: include/version.h $(addprefix build/native/,$(OBJ))
 	$(Q)$(CC_native) $^ -o $@ $(LDFLAGS) $(LDFLAGS_native)
 
 build/native/blackmagic.bin: build/native/blackmagic.elf
-	$(Q)echo "  OBJCOPY $@"
+	@echo "  OBJCOPY $@"
 	$(Q)$(OBJCOPY_native) -O binary $< $@
 
 .PHONEY: native

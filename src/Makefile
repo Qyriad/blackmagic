@@ -14,7 +14,7 @@ endif
 
 CFLAGS += -Wall -Wextra -Werror -Wno-char-subscripts \
 	-std=gnu99 -g3 -MD -I./target \
-	-I. -Iinclude -I$(PLATFORM_DIR)
+	-I. -Iinclude
 
 ifeq ($(ENABLE_DEBUG), 1)
 CFLAGS += -DENABLE_DEBUG
@@ -101,6 +101,7 @@ endif
 OBJ = $(patsubst %.S,%.o,$(patsubst %.c,%.o,$(SRC)))
 
 include platforms/native/platform.mk
+include platforms/f4discovery/platform.mk
 
 .PHONY:	clean host_clean all_platforms FORCE
 
@@ -121,4 +122,4 @@ ifneq ($(file <include/version.h), $(VERSION_HEADER))
 	$(Q)$(file >$@,$(VERSION_HEADER))
 endif
 
--include *.d
+#-include *.d
