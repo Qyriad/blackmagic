@@ -1,6 +1,3 @@
-PROBE_HOST ?= native
-PLATFORM_DIR = platforms/$(PROBE_HOST)
-#VPATH += $(PLATFORM_DIR) target
 VPATH += target
 ENABLE_DEBUG ?=
 
@@ -65,8 +62,6 @@ SRC =			\
 	target.c	\
 
 
-#include $(PLATFORM_DIR)/Makefile.inc
-
 ifneq ($(PC_HOSTED),1)
 # Output memory usage information
 LDFLAGS += -Wl,--print-memory-usage
@@ -86,7 +81,6 @@ endif
 
 SRC += platforms/common/swdptap.c platforms/common/jtagtap.c
 CFLAGS += -DPC_HOSTED=0
-#VPATH += platforms/common
 CFLAGS += -Iplatforms/common
 
 ifeq ($(ENABLE_RTT), 1)
@@ -121,5 +115,3 @@ ifneq ($(file <include/version.h), $(VERSION_HEADER))
 	@echo " GEN GIT  $@"
 	$(Q)$(file >$@,$(VERSION_HEADER))
 endif
-
-#-include *.d
